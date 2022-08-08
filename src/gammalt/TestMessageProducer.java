@@ -1,4 +1,6 @@
-package p1;
+package gammalt;
+
+import p1.*;
 
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
@@ -23,9 +25,9 @@ public class TestMessageProducer {
     			new Message("Going up.",new ImageIcon("images/new8.jpg")),
     			new Message("Going up..",new ImageIcon("images/new9.jpg")),
     			new Message("Almost up",new ImageIcon("images/new10.jpg")) };
-        return new ArrayProducer(messages,times,delay);       
+        return new ArrayProducer(messages,times,delay);
     }
-    
+
     private static void writeToObjectStream(String filename, MessageProducer mp) {
     	try( FileOutputStream fos = new FileOutputStream(filename);
     			BufferedOutputStream bos = new BufferedOutputStream(fos);
@@ -41,14 +43,15 @@ public class TestMessageProducer {
     		System.err.println(e.toString());
     	}
     }
-    
-	public static void main(String[] args) {	
+
+	public static void main(String[] args) {
 		Viewer viewer = new Viewer(300,200);
 		Viewer.showPanelInFrame(viewer,"From MessageProducer",100,50);
 //		MessageProducer mp = getArrayProducer(1,500);
-		MessageProducer mp = new TextfileProducer("files/new.txt");
-//		writeToObjectStream("files/new.dat",getArrayProducer(4,500));
-//		MessageProducer mp = new ObjectfileProducer("files/new.dat");
+//		MessageProducer mp = new TextfileProducer("files/new.txt");
+		writeToObjectStream("files/new.dat",getArrayProducer(0,500));
+		MessageProducer mp = new ObjectfileProducer("files/new.dat");
+
 		Message message;
 		int times = mp.times();
 		int delay = mp.delay();

@@ -10,11 +10,8 @@ public class TextfileProducer implements MessageProducer{
     private int times = 0;
     private int size;
     private int currentIndex = -1;
-    private String fileName;
 
     public TextfileProducer(String filename){
-        this.fileName=filename;
-
 
         try(BufferedReader br= new BufferedReader(new InputStreamReader(new FileInputStream(filename), "UTF-8"))){
 

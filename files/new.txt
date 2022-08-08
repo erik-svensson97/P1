@@ -1,7 +1,7 @@
 4
 200
 10
-lol test
+UP
 images/new1.jpg
  and...
 images/new2.jpg
