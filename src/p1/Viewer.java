@@ -17,7 +17,7 @@ public class Viewer extends JPanel {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				setLayout(new BorderLayout());
-				lblText = new JLabel(" ",JLabel.CENTER);
+				lblText = new JLabel("TESTAR ",JLabel.CENTER);
 				lblIcon = new JLabel(" ",JLabel.CENTER);
 				lblText.setFont(new Font("SansSerif",Font.PLAIN,20));
 				lblIcon.setOpaque(true);

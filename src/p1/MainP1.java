@@ -1,39 +1,61 @@
 package p1;
 
 import javax.swing.ImageIcon;
+import java.util.ArrayList;
 
 public class MainP1 {
 	public static void main(String[] args) {
 		Buffer<Message> messageBuffer = new Buffer<Message>();
 		Buffer<MessageProducer> producerBuffer	= new Buffer<MessageProducer>();
-		
 		MessageManager messageManager = new MessageManager(messageBuffer);
+
+
+		int windows = 4;
+		ArrayList<Viewer> viewers = new ArrayList<Viewer>();
+		ArrayList<P1Viewer> Pviewers = new ArrayList<P1Viewer>();
+
+		for (int i = 0; i< windows; i++){
+
+			var toCreate = new Viewer(300,200);
+			viewers.add(toCreate);
+			Pviewers.add(new P1Viewer(toCreate,messageManager));
+		}
+
+		for (int i = 0; i< windows; i++) {
+			{
+				viewers.get(i).showPanelInFrame(Pviewers.get(i).getViewer(), "Viewer " + (i + 1), 100 + (i * 320), 50);
+			}
+		}
+
+
+
+
 		Viewer viewer1 = new Viewer(300,200);
 		Viewer viewer2 = new Viewer(300,200);
 		Viewer viewer3 = new Viewer(300,200);
 
 
-		P1Viewer v1 = new P1Viewer(viewer1,messageManager);
-		P1Viewer v2 = new P1Viewer(viewer2,messageManager);
-		P1Viewer v3 = new P1Viewer(viewer3,messageManager);
+		//P1Viewer v1 = new P1Viewer(viewer1,messageManager);
+		//P1Viewer v2 = new P1Viewer(viewer2,messageManager);
+		//P1Viewer v3 = new P1Viewer(viewer3,messageManager);
 
-		Viewer.showPanelInFrame(v1.getViewer(), "Viewer 1", 100, 50);
-		Viewer.showPanelInFrame(v2.getViewer(), "Viewer 2", 450, 50);
-		Viewer.showPanelInFrame(v3.getViewer(), "Viewer 3", 800, 200);
+		//Viewer.showPanelInFrame(v1.getViewer(), "Viewer 1", 100, 50);
+		//Viewer.showPanelInFrame(v2.getViewer(), "Viewer 2", 450, 50);
+		//Viewer.showPanelInFrame(v3.getViewer(), "Viewer 3", 800, 200);
 
 		
 		Producer producer = new Producer(producerBuffer,messageBuffer);
 
 		
-		MessageProducerInput ipManager = new MessageProducerInput(producerBuffer);		
+		MessageProducerInput ipManager = new MessageProducerInput(producerBuffer);
 		ipManager.addMessageProducer(getArrayProducer(1,400));
 		ipManager.addMessageProducer(new ShowGubbe(3000));
 		ipManager.addMessageProducer(new TextfileProducer("files/new.txt"));
+
 		producer.start();
 		messageManager.start();
-
 	}
-	
+
     private static ArrayProducer getArrayProducer(int times, int delay) {
     	Message[] messages = { new Message("UP",new ImageIcon("images/new1.jpg")),
     			new Message("Going down.",new ImageIcon("images/new2.jpg")),

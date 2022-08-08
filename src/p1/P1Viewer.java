@@ -2,7 +2,7 @@ package p1;
 
 
 
-public class P1Viewer   {
+public class P1Viewer implements ViewListener  {
     private MessageManager messageManager;
     private Viewer viewer;
 
@@ -11,15 +11,18 @@ public class P1Viewer   {
     }
 
     public P1Viewer(Viewer viewer, MessageManager messageManager) {
+
         this.viewer=viewer;
         this.messageManager=messageManager;
 
-        messageManager.addListener(this::messagetransfer);
+         messageManager.addListener(this);
     }
 
-    public void messagetransfer() {
+
+
+    public void messagetransfer(Message testar) {
         try {
-            viewer.setMessage(messageManager.getMessageBuffer().get());
+            viewer.setMessage(testar);
 
         } catch (Exception e) {
             e.printStackTrace();

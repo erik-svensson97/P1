@@ -1,31 +1,31 @@
 package p1;
 
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class MessageManager{
 
     Buffer<Message> messageBuffer;
-    private ViewListener listener;
+    ArrayList<ViewListener> listeners = new ArrayList<ViewListener>();
     private MessageThread thread;
 
 
     public MessageManager(Buffer<Message> messageBuffer) {
-        this.messageBuffer=messageBuffer;
-
-
+        this.messageBuffer = messageBuffer;
     }
 
     public void addListener(ViewListener listener){
-        this.listener=listener;
 
+        listeners.add(listener);
     }
+
     public void start()
     {
-        thread= new MessageThread();
+        thread = new MessageThread();
         thread.start();
-
     }
+
     public class MessageThread extends Thread{
         public void run(){
 
@@ -33,7 +33,15 @@ public class MessageManager{
                 thread.sleep(100);
 
                 while (!Thread.interrupted()){
-                    listener.messagetransfer();
+
+                   Message testar = messageBuffer.get();
+
+                    for (ViewListener listener : listeners)
+                    {
+                        listener.messagetransfer(testar);
+                    }
+
+
                 }
 
             }catch (Exception e){
