@@ -1,15 +1,31 @@
 package p1;
 
-import javax.swing.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
-public class P1Viewer extends Viewer  {
+
+public class P1Viewer   {
     private MessageManager messageManager;
+    private Viewer viewer;
 
-    public P1Viewer(MessageManager messageManager,int width, int height) {
-        super(width, height);
-        this.messageManager=messageManager;
+    public Viewer getViewer() {
+        return viewer;
     }
 
+    public P1Viewer(Viewer viewer, MessageManager messageManager) {
+        this.viewer=viewer;
+        this.messageManager=messageManager;
+
+        messageManager.addListener(this::messagetransfer);
+    }
+
+    public void messagetransfer() {
+        try {
+            viewer.setMessage(messageManager.getMessageBuffer().get());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 }
+
+

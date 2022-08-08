@@ -11,6 +11,5 @@ public class MessageProducerInput {
 
     public void addMessageProducer(MessageProducer m){
         producerBuffer.put(m);
-
     }
 }

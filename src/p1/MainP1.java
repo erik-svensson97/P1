@@ -8,21 +8,30 @@ public class MainP1 {
 		Buffer<MessageProducer> producerBuffer	= new Buffer<MessageProducer>();
 		
 		MessageManager messageManager = new MessageManager(messageBuffer);
-		P1Viewer v1 = new P1Viewer(messageManager, 300, 200);
-		P1Viewer v2 = new P1Viewer(messageManager, 320, 320);
-		P1Viewer v3 = new P1Viewer(messageManager, 200, 400);
-		Viewer.showPanelInFrame(v1, "Viewer 1", 100, 50);
-		Viewer.showPanelInFrame(v2, "Viewer 2", 450, 50);
-		Viewer.showPanelInFrame(v3, "Viewer 3", 800, 200);
-		messageManager.start();
+		Viewer viewer1 = new Viewer(300,200);
+		Viewer viewer2 = new Viewer(300,200);
+		Viewer viewer3 = new Viewer(300,200);
+
+
+		P1Viewer v1 = new P1Viewer(viewer1,messageManager);
+		P1Viewer v2 = new P1Viewer(viewer2,messageManager);
+		P1Viewer v3 = new P1Viewer(viewer3,messageManager);
+
+		Viewer.showPanelInFrame(v1.getViewer(), "Viewer 1", 100, 50);
+		Viewer.showPanelInFrame(v2.getViewer(), "Viewer 2", 450, 50);
+		Viewer.showPanelInFrame(v3.getViewer(), "Viewer 3", 800, 200);
+
 		
 		Producer producer = new Producer(producerBuffer,messageBuffer);
-		producer.start();
+
 		
 		MessageProducerInput ipManager = new MessageProducerInput(producerBuffer);		
-		ipManager.addMessageProducer(getArrayProducer(10,100));
+		ipManager.addMessageProducer(getArrayProducer(1,400));
 		ipManager.addMessageProducer(new ShowGubbe(3000));
 		ipManager.addMessageProducer(new TextfileProducer("files/new.txt"));
+		producer.start();
+		messageManager.start();
+
 	}
 	
     private static ArrayProducer getArrayProducer(int times, int delay) {
