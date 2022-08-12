@@ -12,6 +12,9 @@ public class Producer {
         this.prodBuffer=prodBuffer;
         this.messageBuffer=messageBuffer;
     }
+    /**
+     * initiates and starts the thread
+     */
 
     public void start() {
 
@@ -31,6 +34,10 @@ public class Producer {
             this.messageBuffer = messageBuffer;
 
         }
+
+        /**
+         * function is called when thread.start() is called. Populates messagebuffer with messages from the specific messageproducer
+         */
         public void run() {
             MessageProducer mp;
 
@@ -42,8 +49,13 @@ public class Producer {
                     e.printStackTrace();
                 }
             }
-            thread=null;
+
         }
+        /**
+         * @param producer MessageProducer object
+         * @param messageBuffer Message buffer
+         * populates message buffer with objects from messageproducer
+         */
 
         private void populate(MessageProducer producer,Buffer<Message> messageBuffer) throws InterruptedException {
             Message message;

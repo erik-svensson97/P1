@@ -41,22 +41,36 @@ public class TextfileProducer implements MessageProducer{
 
     }
 
-
+    /**
+     * returns delay between each message
+     */
 
     @Override
     public int delay() {
         return delay;
     }
 
+    /**
+     * returns number of times sequence of messages should be shown times
+     */
+
     @Override
     public int times() {
         return times;
     }
 
+    /**
+     * returns size of message array
+     */
+
     @Override
     public int size() {
         return size;
     }
+
+    /**
+     * returns next message in array and returns to index 0 when it has itiriated trough whole array
+     */
 
     @Override
     public Message nextMessage() {
